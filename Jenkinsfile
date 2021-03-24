@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
                 input 'Is everythink OK with with app on Staging server?'
-                mileston(1)
+                milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
