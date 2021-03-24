@@ -8,7 +8,7 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('Deploy to Staging') {
+        stage('DeployToStaging') {
             when {
                 branch 'master'
             }
@@ -38,12 +38,12 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Prodaction') {
+        stage('DeployToProduction') {
             when {
                 branch 'master'
             }
             steps {
-                input 'Is everythink OK with with app on Staging server?'
+                input 'Does the staging environment look OK?'
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
@@ -51,7 +51,7 @@ pipeline {
                         continueOnError: false,
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'staging',
+                                configName: 'production',
                                 sshCredentials: [
                                     username: "$USERNAME",
                                     encryptedPassphrase: "$USERPASS"
