@@ -43,7 +43,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                init 'Is everythink OK with on Staging server?'
+                input 'Is everythink OK with with app on Staging server?'
                 mileston(1)
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
